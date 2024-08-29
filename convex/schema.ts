@@ -1,6 +1,6 @@
+import { authTables } from "@convex-dev/auth/server";
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
-import { authTables } from "@convex-dev/auth/server";
 
 // The schema is normally optional, but Convex Auth
 // requires indexes defined on `authTables`.
@@ -10,5 +10,8 @@ export default defineSchema({
   messages: defineTable({
     userId: v.id("users"),
     body: v.string(),
+  }),
+  reports: defineTable({
+    storageId: v.id("_storage"),
   }),
 });

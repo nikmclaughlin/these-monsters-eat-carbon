@@ -35,7 +35,9 @@ export function Layout({
           LWJ{" "}
           <FooterLink href="https://lwj.dev/wdc-hackathon">
             Web Dev Challenge
-          </FooterLink>
+          </FooterLink>{" "}
+          with data from{" "}
+          <FooterLink href="https://docs.airnowapi.org/">EPA AirNow</FooterLink>
           .
         </div>
       </footer>
