@@ -5,7 +5,7 @@ import { internalAction, internalMutation } from "./_generated/server";
 
 export const fetchAndStoreLatestReports = internalAction({
   args: {},
-  handler: async (ctx, args) => {
+  handler: async (ctx) => {
     const response = await fetch(
       "https://s3-us-west-1.amazonaws.com//files.airnowtech.org/airnow/today/reportingarea.dat",
     );
