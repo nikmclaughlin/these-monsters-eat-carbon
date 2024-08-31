@@ -12,7 +12,6 @@ export default defineSchema({
     body: v.string(),
   }),
   reports: defineTable({
-    storageId: v.id("_storage"), // File ref for raw data
     validDate: v.string(), // Date of forecast
     dataType: v.string(), // (F)orecast or (O)bservation
     reportingArea: v.string(), // Key for zip lookups
