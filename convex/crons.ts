@@ -12,4 +12,13 @@ crons.daily(
   internal.reports.fetchAndStoreLatestReports,
 );
 
+crons.daily(
+  "remove old AQI reports",
+  {
+    hourUTC: 2,
+    minuteUTC: 22,
+  },
+  internal.reports.clearOldReports,
+);
+
 export default crons;

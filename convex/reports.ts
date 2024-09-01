@@ -1,6 +1,11 @@
+import { paginationOptsValidator } from "convex/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
-import { internalAction, internalMutation } from "./_generated/server";
+import {
+  internalAction,
+  internalMutation,
+  internalQuery,
+} from "./_generated/server";
 
 const rawData = {
   issueDate: "",
@@ -77,10 +82,54 @@ export const storeResult = internalMutation({
       };
       return filtered;
     });
-    // Create a new db document for each filtered object
+
+    const today = new Date().toLocaleDateString("en-US", {
+      month: "2-digit",
+      day: "2-digit",
+      year: "2-digit",
+    });
+
+    // Create a new db document for each filtered object containing today's data
     await Promise.all(
       records.map(async (obj) => {
-        return ctx.db.insert("reports", obj);
+        if (obj.validDate === today) {
+          return ctx.db.insert("reports", obj);
+        }
+      }),
+    );
+  },
+});
+
+const getOldReports = internalQuery({
+  args: {},
+  handler: async (ctx) => {
+    const today = new Date().toLocaleDateString("en-US", {
+      month: "2-digit",
+      day: "2-digit",
+      year: "2-digit",
+    });
+
+    // convex limits reads to 4000 so we grab as much as we can for deletion
+    const oldies = await ctx.db
+      .query("reports")
+      .filter((q) =>
+        q.or(
+          q.gt(q.field("validDate"), today),
+          q.lt(q.field("validDate"), today),
+        ),
+      )
+      .take(4000);
+    return oldies;
+  },
+});
+
+export const clearOldReports = internalMutation({
+  handler: async (ctx) => {
+    const oldReports = await getOldReports(ctx, {});
+
+    await Promise.all(
+      oldReports.map(async (result) => {
+        await ctx.db.delete(result._id);
       }),
     );
   },
