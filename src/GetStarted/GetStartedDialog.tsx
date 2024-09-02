@@ -55,8 +55,8 @@ function GetStartedContent() {
       <p>Here's how it works:</p>
       <ul className="list-disc">
         <li>
-          - Use your GitHub account or email to get signed in (you guys have
-          those, right?)
+          - Use your GitHub account to get signed in (you guys have those,
+          right?)
         </li>
         <li>- Add some zip codes to start tracking</li>
         <li>
