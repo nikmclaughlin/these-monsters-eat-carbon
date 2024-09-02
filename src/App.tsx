@@ -18,7 +18,7 @@ export default function App() {
     >
       <>
         <Authenticated>
-          <UserDashboard userName={user?.name ?? "back"} />
+          <UserDashboard user={user} />
         </Authenticated>
         <Unauthenticated>
           <SignInForm />

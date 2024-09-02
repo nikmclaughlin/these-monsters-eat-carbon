@@ -28,6 +28,22 @@ export const addTrackedZip = mutation({
   },
 });
 
+export const removeTrackedZip = mutation({
+  args: { zip: v.string() },
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx);
+    if (userId !== null) {
+      const user = await ctx.db.get(userId);
+      if (user !== null) {
+        if (user.trackedZips?.includes(args.zip)) {
+          const newZips = user.trackedZips.filter((zip) => zip !== args.zip);
+          await ctx.db.patch(userId, { trackedZips: newZips });
+        }
+      }
+    }
+  },
+});
+
 // EDIT: I think I can just do viewer.trackedZips above without issue, but I'll leave this here in case
 // export const getTrackedZips = query({
 //   args: {},

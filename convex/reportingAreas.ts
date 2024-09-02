@@ -79,7 +79,16 @@ export const storeReportingAreas = internalMutation({
   },
 });
 
-export const getReportingAreaNameFromZip = query({
+export const getUserReportingAreas = query({
+  args: { zips: v.array(v.string()) },
+  handler: async (ctx, args) => {
+    return await Promise.all(
+      args.zips.map((zip) => getReportingAreaFromZip(ctx, { zip: zip })),
+    );
+  },
+});
+
+export const getReportingAreaFromZip = query({
   args: { zip: v.string() },
   handler: async (ctx, args) => {
     const reportingArea = await ctx.db
@@ -87,7 +96,7 @@ export const getReportingAreaNameFromZip = query({
       .withIndex("byZipCode", (q) => q.eq("zipCode", args.zip))
       .first();
 
-    return reportingArea?.name || "Data not found";
+    return reportingArea;
   },
 });
 

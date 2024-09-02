@@ -1,35 +1,57 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
+import { DataModel } from "../../convex/_generated/dataModel";
 import { AddLocationForm } from "./AddLocationForm";
+import { ReportCard } from "./ReportCard";
 
-export const UserDashboard = ({ userName }: { userName: string }) => {
-  console.dir(userName);
+type UserDashboardProps = {
+  user: DataModel["users"]["document"];
+};
+
+export const UserDashboard = (props: UserDashboardProps) => {
+  const { user } = props;
+  const getUserReportingAreas = useQuery(
+    api.reportingAreas.getUserReportingAreas,
+    user && user.trackedZips ? { zips: user.trackedZips } : "skip",
+  );
+  const trackedAreas = getUserReportingAreas;
+
   return (
     <div className="flex flex-col gap-4 p-4">
-      <div>{`Welcome ${userName.split(" ")[0]}!`}</div>
+      <div>{user ? `Welcome ${user.name?.split(" ")[0]}!` : "Hi there!"}</div>
       <div className="w-full border border-black rounded-lg p-4">
         <div className="flex justify-between">
           <div>Your Locations</div>
           <Dialog>
             <DialogTrigger>
-              <button className="bg-slate-700 text-white text-sm p-2 rounded">
+              <div className="bg-slate-700 text-white text-sm p-2 rounded">
                 + Add Location
-              </button>
+              </div>
             </DialogTrigger>
             <DialogContent className="w-min">
               <DialogHeader>
                 <DialogTitle>Track a new location</DialogTitle>
-                <AddLocationForm />
+                <DialogDescription>
+                  Enter a zipcode to receive updates for that location
+                </DialogDescription>
               </DialogHeader>
+              <AddLocationForm />
             </DialogContent>
           </Dialog>
         </div>
-        <div className="text-sm">...cards</div>
+        <div className="w-full w-max-4xl flex flex-col gap-4 p-4">
+          {trackedAreas?.map((area, idx) =>
+            area ? <ReportCard reportingArea={area} key={idx} /> : null,
+          )}
+        </div>
       </div>
     </div>
   );
