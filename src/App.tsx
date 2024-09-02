@@ -1,13 +1,13 @@
-import { Chat } from "@/Chat/Chat";
-import { ChatIntro } from "@/Chat/ChatIntro";
 import { Layout } from "@/Layout";
 import { SignInForm } from "@/SignInForm";
 import { UserMenu } from "@/components/UserMenu";
 import { Authenticated, Unauthenticated, useQuery } from "convex/react";
 import { api } from "../convex/_generated/api";
+import { UserDashboard } from "./Dashboard/UserDashboard";
 
 export default function App() {
   const user = useQuery(api.users.viewer);
+
   return (
     <Layout
       menu={
@@ -18,8 +18,7 @@ export default function App() {
     >
       <>
         <Authenticated>
-          <ChatIntro />
-          <Chat viewer={(user ?? {})._id!} />
+          <UserDashboard userName={user?.name ?? "back"} />
         </Authenticated>
         <Unauthenticated>
           <SignInForm />

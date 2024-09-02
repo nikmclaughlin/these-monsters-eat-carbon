@@ -1,10 +1,29 @@
 import { getAuthUserId } from "@convex-dev/auth/server";
-import { query } from "./_generated/server";
+import { v } from "convex/values";
+import { mutation, query } from "./_generated/server";
 
 export const viewer = query({
   args: {},
   handler: async (ctx) => {
     const userId = await getAuthUserId(ctx);
-    return userId !== null ? ctx.db.get(userId) : null;
+    return userId !== null ? await ctx.db.get(userId) : null;
+  },
+});
+
+export const addTrackedZip = mutation({
+  args: { zip: v.string() },
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx);
+
+    if (userId !== null) {
+      const previousZips = (await ctx.db.get(userId))?.trackedZips;
+
+      // merge and dedupe additions with existing zips
+      const newZips = [
+        ...new Set(previousZips ? [...previousZips, args.zip] : [args.zip]),
+      ];
+
+      await ctx.db.patch(userId, { trackedZips: newZips });
+    }
   },
 });
