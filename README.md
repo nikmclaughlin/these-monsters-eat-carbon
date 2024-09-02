@@ -1,5 +1,7 @@
 # THESE MONSTERS EAT CARBON >
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1a6fc53b-8f7b-4317-9352-5e2662f99d4a/deploy-status)](https://app.netlify.com/sites/these-monsters-eat-carbon/deploys)
+
 A food finder for the carbon-eating monsters that came to Earth.
 
 ## Built with:
