@@ -25,9 +25,9 @@ export const UserDashboard = (props: UserDashboardProps) => {
   const trackedAreas = getUserReportingAreas;
 
   return (
-    <div className="flex flex-col gap-4 p-4">
+    <div className="w-full flex flex-col items-center gap-4 p-4">
       <div>{user ? `Welcome ${user.name?.split(" ")[0]}!` : "Hi there!"}</div>
-      <div className="w-full border border-black rounded-lg p-4">
+      <div className="w-full max-w-4xl p-4 flex flex-col">
         <div className="flex justify-between">
           <div>Your Locations</div>
           <Dialog>
@@ -47,10 +47,12 @@ export const UserDashboard = (props: UserDashboardProps) => {
             </DialogContent>
           </Dialog>
         </div>
-        <div className="w-full w-max-4xl flex flex-col gap-4 p-4">
-          {trackedAreas?.map((area, idx) =>
-            area ? <ReportCard reportingArea={area} key={idx} /> : null,
-          )}
+        <div className="w-full flex flex-col items-center">
+          <div className="w-full max-w-3xl flex flex-col items-center gap-4 p-4">
+            {trackedAreas?.map((area, idx) =>
+              area ? <ReportCard reportingArea={area} key={idx} /> : null,
+            )}
+          </div>
         </div>
       </div>
     </div>

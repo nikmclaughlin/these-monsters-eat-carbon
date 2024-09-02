@@ -30,15 +30,17 @@ export const ReportCard = (props: {
         </div>
         <Dialog>
           <DialogTrigger>
-            <div className="bg-slate-700 text-white text-sm p-2 rounded">X</div>
+            <div className="bg-slate-700 hover:bg-slate-600 text-white text-sm p-2 rounded">
+              X
+            </div>
           </DialogTrigger>
-          <DialogContent className="absolute bg-slate-100 p-4 text-slate-800 rounded-lg right-16">
+          <DialogContent className="absolute bg-slate-100 p-4 text-slate-800 rounded-lg right-[23%]">
             <DialogHeader>
               <DialogTitle>Remove this location?</DialogTitle>
               <DialogDescription></DialogDescription>
               <DialogClose>
                 <div
-                  className="bg-red-700 text-white text-sm p-2 rounded"
+                  className="bg-red-700 hover:bg-red-600 text-white text-sm p-2 rounded"
                   onClick={() => void removeZip({ zip: reportingArea.zipCode })}
                 >
                   Remove

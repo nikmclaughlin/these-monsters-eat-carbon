@@ -60,19 +60,21 @@ function GetStartedContent() {
       <p>
         Of course, just having all those tasty chemical treats out there doesn't
         mean they're easy to find! So we've built this little app to help you
-        hungry monsters find the best dining spots in your area! Here's how it
-        works:
+        hungry monsters find the best dining spots in your area!
       </p>
+      <p>Here's how it works:</p>
       <ul className="list-disc">
         <li>
-          Get yourself a GitHub account or email address and get signed in
+          - Use your GitHub account or email to get signed in (you guys have
+          those, right?)
         </li>
-        <li>Add some zip codes to start tracking</li>
+        <li>- Add some zip codes to start tracking</li>
         <li>
-          Check in every day for updated readouts of the dining options in your
-          area!
+          - Check in every day for updated readouts of the dining options in
+          your area!
         </li>
       </ul>
+      <p>Feel free to ask a human if you have any questions! Bon appetít!</p>
     </div>
   );
 }
