@@ -11,6 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { DialogDescription } from "@radix-ui/react-dialog";
 import {
   CodeIcon,
   ExternalLinkIcon,
@@ -26,9 +27,10 @@ export function GetStartedDialog({ children }: { children: ReactNode }) {
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[calc(100vh-8rem)] grid-rows-[1fr_auto]">
         <DialogHeader>
-          <DialogTitle className="flex items-baseline gap-2">
-            Your app powered by <ConvexLogo width={69} height={11} />
-          </DialogTitle>
+          <DialogTitle className="">These Monsters Eat Carbon &gt;</DialogTitle>
+          <DialogDescription>
+            A little background on what's going on here
+          </DialogDescription>
         </DialogHeader>
         <GetStartedContent />
         <DialogFooter>
@@ -43,82 +45,34 @@ export function GetStartedDialog({ children }: { children: ReactNode }) {
 
 function GetStartedContent() {
   return (
-    <div className="overflow-y-auto">
-      <p className="text-muted-foreground mb-2">
-        This template is a starting point for building your fullstack web
-        application.
+    <div className="overflow-y-auto text-muted-foreground flex flex-col gap-2">
+      <p>
+        Welcome, monsters, to a planet called Earth! We humans have been running
+        the show around here for a while and, as you're aware, we've lately
+        taken to producing a whole lot of greenhouse gas emissions!
       </p>
-      <div className="grid gap-4 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex gap-2">
-              <PlayIcon /> Play with the app
-            </CardTitle>
-          </CardHeader>
-          <CardContent>Close this dialog to see the app in action.</CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex gap-2">
-              <StackIcon /> Inspect your database
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            The{" "}
-            <a
-              href="https://dashboard.convex.dev/"
-              className="underline underline-offset-4 hover:no-underline"
-              target="_blank"
-            >
-              Convex dashboard
-            </a>{" "}
-            is already open in another window.
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex gap-2">
-              <CodeIcon />
-              Change the backend
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            Edit <Code>convex/messages.ts</Code> to change the backend
-            functionality.
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex gap-2">
-              <MagicWandIcon />
-              Change the frontend
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            Edit <Code>src/App.tsx</Code> to change your frontend.
-          </CardContent>
-        </Card>
-      </div>
-      <div>
-        <h2 className="mt-6 mb-3 font-semibold">Helpful resources</h2>
-        <div className="grid md:grid-cols-2 gap-3">
-          <Resource title="Convex Docs" href="https://docs.convex.dev/home">
-            Read comprehensive documentation for all Convex features.
-          </Resource>
-          <Resource title="Stack articles" href="https://stack.convex.dev/">
-            Learn about best practices, use cases, and more from a growing
-            collection of articles, videos, and walkthroughs.
-          </Resource>
-          <Resource title="Discord" href="https://www.convex.dev/community">
-            Join our developer community to ask questions, trade tips & tricks,
-            and show off your projects.
-          </Resource>
-          <Resource title="Search them all" href="https://search.convex.dev/">
-            Get unblocked quickly by searching across the docs, Stack, and
-            Discord chats.
-          </Resource>
-        </div>
-      </div>
+      <p>
+        Now, that's great news for you because these "emissions" are chock full
+        of all your favorite molecular treats. We're talking methane; we're
+        talking carbon dioxide; we're talking enough ozone to choke a horse!
+        Haha, not that that's happened here on this planet!
+      </p>
+      <p>
+        Of course, just having all those tasty chemical treats out there doesn't
+        mean they're easy to find! So we've built this little app to help you
+        hungry monsters find the best dining spots in your area! Here's how it
+        works:
+      </p>
+      <ul className="list-disc">
+        <li>
+          Get yourself a GitHub account or email address and get signed in
+        </li>
+        <li>Add some zip codes to start tracking</li>
+        <li>
+          Check in every day for updated readouts of the dining options in your
+          area!
+        </li>
+      </ul>
     </div>
   );
 }
