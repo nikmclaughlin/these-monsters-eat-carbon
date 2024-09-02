@@ -17,9 +17,7 @@ export default function App() {
       }
     >
       <>
-        <Authenticated>
-          <UserDashboard user={user} />
-        </Authenticated>
+        <Authenticated>{user && <UserDashboard user={user} />}</Authenticated>
         <Unauthenticated>
           <SignInForm />
         </Unauthenticated>
