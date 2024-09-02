@@ -27,3 +27,16 @@ export const addTrackedZip = mutation({
     }
   },
 });
+
+// EDIT: I think I can just do viewer.trackedZips above without issue, but I'll leave this here in case
+// export const getTrackedZips = query({
+//   args: {},
+//   handler: async (ctx) => {
+//     const userId = await getAuthUserId(ctx);
+//     if (userId !== null) {
+//       const user = await ctx.db.get(userId);
+//       return user ? user.trackedZips : ["Invalid User data"];
+//     }
+//     return ["Invalid User data"];
+//   },
+// });

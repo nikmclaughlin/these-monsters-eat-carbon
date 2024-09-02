@@ -4,6 +4,7 @@ import {
   internalAction,
   internalMutation,
   internalQuery,
+  query,
 } from "./_generated/server";
 
 const rawData = {
@@ -111,11 +112,8 @@ const getOldReports = internalQuery({
     // convex limits reads to 4000 so we grab as much as we can for deletion
     const oldies = await ctx.db
       .query("reports")
-      .filter((q) =>
-        q.or(
-          q.gt(q.field("validDate"), today),
-          q.lt(q.field("validDate"), today),
-        ),
+      .withIndex("byValidDate", (q) =>
+        q.gt("validDate", today).lt("validDate", today),
       )
       .take(4000);
     return oldies;
@@ -131,5 +129,16 @@ export const clearOldReports = internalMutation({
         await ctx.db.delete(result._id);
       }),
     );
+  },
+});
+
+export const getReportsByReportingAreaName = query({
+  args: { name: v.string() },
+  handler: async (ctx, args) => {
+    const { name } = args;
+    return await ctx.db
+      .query("reports")
+      .withIndex("byReportingArea", (q) => q.eq("reportingArea", name))
+      .collect();
   },
 });

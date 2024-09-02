@@ -30,9 +30,13 @@ export default defineSchema({
     parameterName: v.string(), // OZONE, PM2.5, etc.
     aqiValue: v.string(), // The # measure itself
     aqiCategory: v.string(), // The AQI rating: "Good", "Moderate", "Unhealthy", etc.
-  }).index("byValidDate", ["validDate"]),
+  })
+    .index("byValidDate", ["validDate"])
+    .index("byReportingArea", ["reportingArea"]),
   reportingAreas: defineTable({
     name: v.string(),
-    zipCodes: v.array(v.string()),
-  }).index("byZipCode", ["zipCodes"]),
+    zipCode: v.string(),
+  })
+    .index("byZipCode", ["zipCode"])
+    .index("byName", ["name"]),
 });
