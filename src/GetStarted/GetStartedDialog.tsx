@@ -1,7 +1,4 @@
-import { ConvexLogo } from "@/GetStarted/ConvexLogo";
-import { Code } from "@/components/Code";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
   DialogClose,
@@ -12,13 +9,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { DialogDescription } from "@radix-ui/react-dialog";
-import {
-  CodeIcon,
-  ExternalLinkIcon,
-  MagicWandIcon,
-  PlayIcon,
-  StackIcon,
-} from "@radix-ui/react-icons";
 import { ReactNode } from "react";
 
 export function GetStartedDialog({ children }: { children: ReactNode }) {
@@ -76,31 +66,5 @@ function GetStartedContent() {
       </ul>
       <p>Feel free to ask a human if you have any questions! Bon appetít!</p>
     </div>
-  );
-}
-
-function Resource({
-  title,
-  children,
-  href,
-}: {
-  title: string;
-  children: ReactNode;
-  href: string;
-}) {
-  return (
-    <Button
-      asChild
-      variant="secondary"
-      className="flex h-auto flex-col items-start justify-start gap-2 whitespace-normal p-4 font-normal"
-    >
-      <a href={href} target="_blank">
-        <div className="text-sm font-bold flex items-center gap-1">
-          {title}
-          <ExternalLinkIcon />
-        </div>
-        <div className="text-muted-foreground">{children}</div>
-      </a>
-    </Button>
   );
 }
