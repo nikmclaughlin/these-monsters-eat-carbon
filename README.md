@@ -7,10 +7,18 @@ A food finder for the carbon-eating monsters that came to Earth.
 ## Built with:
 
 - Convex
-- [Convex Auth](https://labs.convex.dev/auth) for your authentication implementation
-- [React](https://react.dev/) as your frontend (web page interactivity)
-- [Vite](https://vitest.dev/) for optimized web hosting
-- [Tailwind](https://tailwindcss.com/) and [shadcn/ui](https://ui.shadcn.com/) for building great looking accessible UI fast
+- [Convex Auth](https://labs.convex.dev/auth)
+- [React](https://react.dev/) 
+- [Vite](https://vitest.dev/) 
+- [Tailwind](https://tailwindcss.com/)
+
+## TODO
+- [ ] Monster-themed styling
+- [ ] Convert AQI ratings to monster scale ("Good" for humans is low-rating)
+- [ ] "Featured" locations for highest global pollutant levels
+- [ ] "Popular near you" for highest pollutants w/in x miles
+- [ ] Allow user to re-order locations
+- [ ] Map views
 
 ## Credits
 
