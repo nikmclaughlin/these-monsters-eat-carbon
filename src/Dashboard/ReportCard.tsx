@@ -9,12 +9,12 @@ import { api } from "../../convex/_generated/api";
 import { DataModel } from "../../convex/_generated/dataModel";
 
 const monsterTranslator: Record<string, string> = {
-  Good: "Out of stock",
-  Moderate: "Limited supply",
-  "Unhealthy for Sensitive Groups": "In stock",
-  Unhealthy: "Plentiful",
-  "Very Unhealthy": "Feast Mode",
-  Hazardous: "Poppin' off",
+  Good: "🔻 Limited supply",
+  Moderate: "✅ In stock",
+  "Unhealthy for Sensitive Groups": " 🍽️ Now serving",
+  Unhealthy: "🍝 All you can eat",
+  "Very Unhealthy": "📣 Feast Mode",
+  Hazardous: "🥂 Poppin' off",
 };
 
 export const ReportCard = (props: {
@@ -22,24 +22,33 @@ export const ReportCard = (props: {
   closable?: boolean;
 }) => {
   const { reportingArea, closable = true } = props;
-
-  const removeZip = useMutation(api.users.removeTrackedZip);
-  const getReports = useQuery(api.reports.getReportsByReportingAreaName, {
-    name: reportingArea.name,
-  });
-  const reports = getReports;
   const today = new Date().toLocaleDateString("en-US", {
     month: "2-digit",
     day: "2-digit",
     year: "2-digit",
   });
 
+  const removeZip = useMutation(api.users.removeTrackedZip);
+  const reports = useQuery(api.reports.getReportsByReportingAreaName, {
+    name: reportingArea.name,
+  });
+  let totalScore = 0;
+  reports?.map(
+    (report) => (totalScore += Math.round(report.aqiValue as number)),
+  );
+  const starCount = Math.round(totalScore / 50);
+
   return (
     <div className="w-full h-32 flex flex-col bg-muted px-4 py-2 rounded-xl">
       <div className="flex justify-between items-start">
-        <div className="flex flex-col font-display tracking-widest">
-          <div className="text-xl">{reportingArea.name}</div>
-          <div className="text-sm">{reportingArea.zipCode}</div>
+        <div className="flex flex-col tracking-widest">
+          <div className="text-xl font-display">{reportingArea.name}</div>
+          <div className="text-sm">
+            ({reportingArea.zipCode}) -{" "}
+            <span className="text-lg">
+              {"☣️".repeat(Math.max(starCount, 1))}
+            </span>
+          </div>
         </div>
         {closable && (
           <DropdownMenu>
