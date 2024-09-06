@@ -58,7 +58,7 @@ export const UserDashboard = (props: UserDashboardProps) => {
           </div>
           <Dialog>
             <DialogTrigger>
-              <div className="bg-slate-700 text-white text-sm p-2 rounded font-display tracking-wider">
+              <div className="bg-secondary-foreground text-secondary text-sm p-2 rounded font-display tracking-wider">
                 + Add Location
               </div>
             </DialogTrigger>
@@ -88,7 +88,9 @@ export const UserDashboard = (props: UserDashboardProps) => {
           <div className="w-full flex flex-col items-center ">
             <div className="w-full max-w-3xl flex flex-col items-center gap-4 p-4">
               {featuredAreas?.map((area, idx) =>
-                area ? <ReportCard reportingArea={area} key={idx} /> : null,
+                area ? (
+                  <ReportCard reportingArea={area} closable={false} key={idx} />
+                ) : null,
               )}
             </div>
           </div>

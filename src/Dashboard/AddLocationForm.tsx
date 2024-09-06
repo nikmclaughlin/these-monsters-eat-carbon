@@ -21,7 +21,7 @@ export const AddLocationForm = () => {
       />
       <DialogClose>
         <div
-          className="box-border w-full bg-slate-700 text-slate-200 hover:bg-slate-600 inline-flex h-[35px] items-center justify-center rounded px-3 font-medium leading-none"
+          className="box-border w-full bg-secondary-foreground text-secondary inline-flex h-[35px] items-center justify-center rounded px-3 font-bold leading-none"
           onClick={() => {
             void addZip({ zip: value });
             setValue("");
