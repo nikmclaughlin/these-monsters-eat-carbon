@@ -1,6 +1,28 @@
 import { GetStartedDialog } from "@/GetStarted/GetStartedDialog";
 import { ReactNode } from "react";
 
+const monsterMoji = [
+  "👽",
+  "👾",
+  "🧟",
+  "🤡",
+  "🐲",
+  "🧛",
+  "🧚",
+  "🧞",
+  "👻",
+  "🐸",
+  "👿",
+  "👺",
+  "👹",
+  "🤖",
+  "🧜‍♀️",
+  "🦑",
+  "🦖",
+  "🧌",
+  "🦄",
+];
+
 export function Layout({
   menu,
   children,
@@ -8,13 +30,16 @@ export function Layout({
   menu?: ReactNode;
   children: ReactNode;
 }) {
+  const monster = Math.round(Math.random() * monsterMoji.length);
   return (
     <div className="flex h-screen w-full flex-col">
       <header className="sticky top-0 z-10 flex min-h-20 border-b bg-background/80 backdrop-blur">
         <nav className="container w-full justify-between flex flex-row items-center gap-6">
           <div className="flex items-center gap-6 md:gap-10">
             <a href="/">
-              <h1 className="text-base font-semibold">T M E C &gt;</h1>
+              <h1 className="text-base font-semibold">
+                T M E C &gt; <span> {monsterMoji[monster]}</span>
+              </h1>
             </a>
             <div className="flex items-center gap-4 text-sm">
               <GetStartedDialog>
