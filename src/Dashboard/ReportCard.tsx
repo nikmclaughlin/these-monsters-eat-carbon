@@ -1,14 +1,21 @@
-import { DialogDescription, DialogHeader } from "@/components/ui/dialog";
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@radix-ui/react-dialog";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuPortal,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { DataModel } from "../../convex/_generated/dataModel";
+
+const monsterTranslator: Record<string, string> = {
+  Good: "Out of stock",
+  Moderate: "Limited supply",
+  "Unhealthy for Sensitive Groups": "In stock",
+  Unhealthy: "Plentiful",
+  "Very Unhealthy": "Feast Mode",
+  Hazardous: "Poppin' off",
+};
 
 export const ReportCard = (props: {
   reportingArea: DataModel["reportingAreas"]["document"];
@@ -29,39 +36,38 @@ export const ReportCard = (props: {
   return (
     <div className="w-full h-32 flex flex-col bg-slate-500 px-4 py-2 rounded-xl">
       <div className="flex justify-between items-start">
-        <div className="flex flex-col font-display">
+        <div className="flex flex-col font-display tracking-widest">
           <div className="text-xl">{reportingArea.name}</div>
           <div className="text-sm">{reportingArea.zipCode}</div>
         </div>
-        <Dialog>
-          <DialogTrigger>
-            <div className="bg-slate-700 hover:bg-slate-600 text-white text-sm p-2 rounded">
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <button className="bg-slate-700 hover:bg-slate-600 text-white text-sm p-2 rounded">
               X
-            </div>
-          </DialogTrigger>
-          <DialogContent className="absolute bg-slate-100 p-4 text-slate-800 rounded-lg right-[23%]">
-            <DialogHeader>
-              <DialogTitle>Remove this location?</DialogTitle>
-              <DialogDescription></DialogDescription>
-              <DialogClose>
-                <div
-                  className="bg-red-700 hover:bg-red-600 text-white text-sm p-2 rounded"
-                  onClick={() => void removeZip({ zip: reportingArea.zipCode })}
-                >
-                  Remove
-                </div>
-              </DialogClose>
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuPortal>
+            <DropdownMenuContent className="flex flex-col gap-2 p-4">
+              <h2>Remove this location?</h2>
+              <button
+                className="bg-red-700 hover:bg-red-600 text-white w-full text-sm font-bold p-2 rounded"
+                onClick={() => void removeZip({ zip: reportingArea.zipCode })}
+              >
+                Remove
+              </button>
+            </DropdownMenuContent>
+          </DropdownMenuPortal>
+        </DropdownMenu>
       </div>
       <div className="h-20 p-2 flex flex-col gap-1 flex-wrap text-sm items-start font-mono">
         {reports
           ?.filter((report) => report.validDate === today)
+          .slice(0, 4)
           .map((report, idx) => {
             return (
               <div className="" key={idx}>
-                {report.parameterName}: {report.aqiValue} - {report.aqiCategory}
+                {report.parameterName}: {report.aqiValue} -{" "}
+                {monsterTranslator[report.aqiCategory]}
               </div>
             );
           })}
