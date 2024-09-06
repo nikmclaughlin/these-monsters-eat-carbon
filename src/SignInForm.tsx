@@ -8,10 +8,17 @@ export function SignInForm() {
 
   return (
     <div className="container my-auto">
-      <div className="max-w-[384px] mx-auto flex flex-col my-auto gap-4 pb-8">
+      <div className="max-w-[400px] mx-auto flex flex-col my-auto gap-4 pb-8">
         {step === "signIn" ? (
           <>
-            <h2 className="font-semibold text-2xl tracking-tight">
+            <h1 className="text-6xl font-display tracking-widest text-center">
+              These Monsters Eat Carbon
+            </h1>
+            <p className="text-muted-foreground tracking-wide">
+              The food-tracking app for carbon-eaters
+            </p>
+            <div className="p-10"></div>
+            <h2 className="font-semibold text-2xl tracking-widest text-center">
               Sign in or create an account
             </h2>
             <SignInWithGitHub />
