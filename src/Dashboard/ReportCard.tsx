@@ -29,7 +29,7 @@ export const ReportCard = (props: {
   return (
     <div className="w-full h-32 flex flex-col bg-slate-500 px-4 py-2 rounded-xl">
       <div className="flex justify-between items-start">
-        <div className="flex flex-col">
+        <div className="flex flex-col font-display">
           <div className="text-xl">{reportingArea.name}</div>
           <div className="text-sm">{reportingArea.zipCode}</div>
         </div>
@@ -55,7 +55,7 @@ export const ReportCard = (props: {
           </DialogContent>
         </Dialog>
       </div>
-      <div className="h-20 p-2 flex flex-col gap-1 flex-wrap text-sm items-start">
+      <div className="h-20 p-2 flex flex-col gap-1 flex-wrap text-sm items-start font-mono">
         {reports
           ?.filter((report) => report.validDate === today)
           .map((report, idx) => {

@@ -16,9 +16,11 @@ export function GetStartedDialog({ children }: { children: ReactNode }) {
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[calc(100vh-8rem)] grid-rows-[1fr_auto]">
-        <DialogHeader>
-          <DialogTitle className="">These Monsters Eat Carbon &gt;</DialogTitle>
-          <DialogDescription>
+        <DialogHeader className="">
+          <DialogTitle className="font-display tracking-wide leading-relaxed text-4xl text-center">
+            These Monsters Eat Carbon &gt;
+          </DialogTitle>
+          <DialogDescription className="text-center border-b border-muted">
             A little background on what's going on here
           </DialogDescription>
         </DialogHeader>

@@ -26,13 +26,15 @@ export const UserDashboard = (props: UserDashboardProps) => {
 
   return (
     <div className="w-full flex flex-col items-center gap-4 p-4">
-      <div>{user ? `Welcome ${user.name?.split(" ")[0]}!` : "Hi there!"}</div>
+      <div className="font-display text-4xl">
+        {user ? `Welcome ${user.name?.split(" ")[0]}!` : "Hi there!"}
+      </div>
       <div className="w-full max-w-4xl p-4 flex flex-col">
         <div className="flex justify-between">
-          <div>Your Locations</div>
+          <div className="font-display">Your Locations</div>
           <Dialog>
             <DialogTrigger>
-              <div className="bg-slate-700 text-white text-sm p-2 rounded">
+              <div className="bg-slate-700 text-white text-sm p-2 rounded font-display">
                 + Add Location
               </div>
             </DialogTrigger>

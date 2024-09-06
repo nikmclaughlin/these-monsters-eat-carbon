@@ -73,6 +73,10 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
+    fontFamily: {
+      display: "Matemasie, Arial, sans-serif",
+      mono: "Courier New, Courier, monospace",
+    },
   },
   plugins: [require("tailwindcss-animate")],
 };
