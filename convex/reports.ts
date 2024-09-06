@@ -112,9 +112,7 @@ const getOldReports = internalQuery({
     // convex limits reads to 4000 so we grab as much as we can for deletion
     const oldies = await ctx.db
       .query("reports")
-      .withIndex("byValidDate", (q) =>
-        q.gt("validDate", today).lt("validDate", today),
-      )
+      .withIndex("byValidDate", (q) => q.lt("validDate", today))
       .take(4000);
     return oldies;
   },

@@ -20,6 +20,11 @@ export const ReportCard = (props: {
     name: reportingArea.name,
   });
   const reports = getReports;
+  const today = new Date().toLocaleDateString("en-US", {
+    month: "2-digit",
+    day: "2-digit",
+    year: "2-digit",
+  });
 
   return (
     <div className="w-full h-32 flex flex-col bg-slate-500 px-4 py-2 rounded-xl">
@@ -50,14 +55,16 @@ export const ReportCard = (props: {
           </DialogContent>
         </Dialog>
       </div>
-      <div className="h-20 p-4 flex flex-col flex-wrap text-sm items-start">
-        {reports?.map((report, idx) => {
-          return (
-            <div className="" key={idx}>
-              {report.parameterName}: {report.aqiValue} - {report.aqiCategory}
-            </div>
-          );
-        })}
+      <div className="h-20 p-2 flex flex-col gap-1 flex-wrap text-sm items-start">
+        {reports
+          ?.filter((report) => report.validDate === today)
+          .map((report, idx) => {
+            return (
+              <div className="" key={idx}>
+                {report.parameterName}: {report.aqiValue} - {report.aqiCategory}
+              </div>
+            );
+          })}
       </div>
     </div>
   );
