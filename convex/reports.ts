@@ -20,7 +20,7 @@ const rawData = {
   latitude: "",
   longitude: "",
   parameterName: "",
-  aqiValue: "",
+  aqiValue: 0,
   aqiCategory: "",
   actionDay: "",
   discussion: "",
@@ -80,6 +80,8 @@ export const storeResult = internalMutation({
         aqiValue,
         aqiCategory,
       };
+      // convert aqiValue to integer
+      filtered.aqiValue = Math.round(filtered.aqiValue);
       return filtered;
     });
 
@@ -92,7 +94,7 @@ export const storeResult = internalMutation({
     // Create a new db document for each filtered object containing today's data
     await Promise.all(
       records.map(async (obj) => {
-        if (obj.validDate === today) {
+        if (obj.validDate === today && obj.dataType === "F") {
           return ctx.db.insert("reports", obj);
         }
       }),
@@ -112,7 +114,7 @@ const getOldReports = internalQuery({
     // convex limits reads to 4000 so we grab as much as we can for deletion
     const oldies = await ctx.db
       .query("reports")
-      .withIndex("byValidDate", (q) => q.lt("validDate", today))
+      .withIndex("byValidDate", (q) => q.eq("validDate", today))
       .take(4000);
     return oldies;
   },
@@ -138,5 +140,16 @@ export const getReportsByReportingAreaName = query({
       .query("reports")
       .withIndex("byReportingArea", (q) => q.eq("reportingArea", name))
       .collect();
+  },
+});
+
+export const getFeaturedReports = query({
+  args: { count: v.number() },
+  handler: async (ctx, args) => {
+    return await ctx.db
+      .query("reports")
+      .withIndex("byAQIValue")
+      .order("desc")
+      .take(args.count);
   },
 });

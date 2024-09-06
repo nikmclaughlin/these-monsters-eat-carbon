@@ -100,6 +100,27 @@ export const getReportingAreaFromZip = query({
   },
 });
 
+export const getFeaturedReportingAreas = query({
+  args: { areas: v.array(v.string()) },
+  handler: async (ctx, args) => {
+    return await Promise.all(
+      args.areas.map((area) => getReportingAreaFromName(ctx, { name: area })),
+    );
+  },
+});
+
+export const getReportingAreaFromName = query({
+  args: { name: v.string() },
+  handler: (ctx, args) => {
+    const reportingArea = ctx.db
+      .query("reportingAreas")
+      .withIndex("byName", (q) => q.eq("name", args.name))
+      .first();
+
+    return reportingArea;
+  },
+});
+
 /**
  * EDIT: Turns out Convex can't query for a string in a string[] field so I have to break these out.
  * Leaving this here for posterity, and reference in case I ever need this as a util:

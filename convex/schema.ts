@@ -28,11 +28,12 @@ export default defineSchema({
     dataType: v.string(), // (F)orecast or (O)bservation
     reportingArea: v.string(), // Key for zip lookups
     parameterName: v.string(), // OZONE, PM2.5, etc.
-    aqiValue: v.string(), // The # measure itself
+    aqiValue: v.union(v.string(), v.number()), // The # measure itself
     aqiCategory: v.string(), // The AQI rating: "Good", "Moderate", "Unhealthy", etc.
   })
     .index("byValidDate", ["validDate"])
-    .index("byReportingArea", ["reportingArea"]),
+    .index("byReportingArea", ["reportingArea"])
+    .index("byAQIValue", ["aqiValue"]),
   reportingAreas: defineTable({
     name: v.string(),
     zipCode: v.string(),
